@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import handleInitialData from '../actions/shared'
-
-
+import LoadingBar from 'react-redux-loading'
+import QuestionList from './QuestionList'
 
 class App extends Component {
   componentDidMount(){
@@ -11,8 +11,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
-        Would You Rather
+        <LoadingBar/>
+        <h3> Would You Rather App</h3>
+        <QuestionList/>
+       
       </div>
     );
   }
