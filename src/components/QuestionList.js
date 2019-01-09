@@ -4,26 +4,58 @@ import Question from './Question'
 
 class QuestionList extends Component{
   render(){
+    const {answeredStatusQuestions} = this.props
+    const answeredQuestions = answeredStatusQuestions.filter(q=>q.answeredBySignedInUser)
+    const nonAnsweredQuestions = answeredStatusQuestions.filter(q=>!q.answeredBySignedInUser)
+    console.log("answeredStatusQuestions..............", this.props.answeredStatusQuestions)
     return(
       <div>
         <h3>QuestionList</h3>
-        <ul>
-          {this.props.questionIds.map(id =>
-           <li key={id}>
-             <Question id={id}/>
-           </li>
-           )}
-        </ul>
+      {answeredStatusQuestions.length!==0 &&
+      <div>
+          <h4>Answered Questions</h4>
+          <ul>
+            {answeredQuestions.map(question =>
+             <li key={question.id}>
+               <Question id={question.id}/>
+             </li>
+             )}
+          </ul>
+         <h4>Non-Answered Questions</h4>
+          <ul>
+            {nonAnsweredQuestions.map(question =>
+             <li key={question.id}>
+               <Question id={question.id}/>
+             </li>
+             )}
+          </ul>
+         </div>
+          }         
       </div>
     )
   }
 }
 
-function mapStateToProperties({questions}){
+function mapStateToProperties({questions, authedUser}){
+   
+  let answeredStatusQuestions = []
+  if(authedUser === null){
+    return {
+      answeredStatusQuestions
+    }
+  } else {
+
+      answeredStatusQuestions = Object.values(questions)
+                                   .map(question=>  { 
+                                           return {...question,
+                                                   answeredBySignedInUser: question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
+                                                  }})
+ 
   return {
-    questionIds: Object.keys(questions)
-                    .sort((a,b)=>
-                         questions[b].timestamp-questions[a].timestamp)
+    answeredStatusQuestions:  answeredStatusQuestions
+                                  .sort((a,b)=>a.timestamp-b.timestamp)
+                              
+          }
   }
 }
 
