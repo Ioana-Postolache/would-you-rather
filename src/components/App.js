@@ -4,6 +4,7 @@ import handleInitialData from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
 import QuestionList from './QuestionList'
 import NewQuestion from './NewQuestion'
+import QuestionPage from './QuestionPage'
 
 class App extends Component {
   componentDidMount(){
@@ -16,7 +17,7 @@ class App extends Component {
         <h3> Would You Rather App</h3>
         <QuestionList/>
         <NewQuestion/>
-       
+        <QuestionPage id={"vthrdm985a262al8qx3do"}/>
       </div>
     );
   }

@@ -8,6 +8,7 @@ class Question extends Component{
     return(
       <div>
       Question {id} asked by {author} - would you rather {optionOne.text} or {optionTwo.text}?
+       <button className="view-poll">View Poll</button>
       </div>
     )
   }

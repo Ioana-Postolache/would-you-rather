@@ -44,14 +44,14 @@ class NewQuestion extends Component{
         <form className='new-question' onSubmit={this.handleSubmit}>
            <textarea
              name='textarea1'
-             placeholder='option one'
+             placeholder='Enter option one here'
              value={text1}
              onChange={this.handleChange}
              className='textarea'
             />
            <textarea
              name='textarea2'
-             placeholder='option two'
+             placeholder='Enter option two here'
              value={text2}
              onChange={this.handleChange}
              className='textarea'
