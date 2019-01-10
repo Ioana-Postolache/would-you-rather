@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {handleSubmitAnswer} from '../actions/questions'
 
 class QuestionPage extends Component{
   state = {
-      selectedOption: "option1"
+      selectedOption: "optionOne"
     }
   
 handleOptionChange = event => {
@@ -13,9 +14,13 @@ handleOptionChange = event => {
 };
 
 handleFormSubmit = event => {
-  event.preventDefault();
   
-  console.log("You have submitted:", this.state.selectedOption);
+  event.preventDefault();
+  const {id} = this.props
+  const {selectedOption} = this.state
+  const {dispatch} = this.props
+  
+  dispatch(handleSubmitAnswer(id,selectedOption))
 }
 
   render(){
@@ -45,15 +50,15 @@ handleFormSubmit = event => {
         Question asked by {author}
           <div>
             <div>Would you rather...</div>
-            <form>
+            <form onSubmit={this.handleFormSubmit}>
 
               <div className="form-check">
                 <label>
                   <input
                     type="radio"
                     name="react-tips"
-                    value="option1"
-                    checked={this.state.selectedOption === "option1"}
+                    value="optionOne"
+                    checked={this.state.selectedOption === "optionOne"}
                     onChange={this.handleOptionChange}
                     className="form-check-input"
                   />
@@ -66,8 +71,8 @@ handleFormSubmit = event => {
                   <input
                     type="radio"
                     name="react-tips"
-                    value="option2"
-                    checked={this.state.selectedOption === "option2"}
+                    value="optionTwo"
+                    checked={this.state.selectedOption === "optionTwo"}
                     onChange={this.handleOptionChange}
                     className="form-check-input"
                   />

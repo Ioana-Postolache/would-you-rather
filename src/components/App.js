@@ -17,7 +17,7 @@ class App extends Component {
         <h3> Would You Rather App</h3>
         <QuestionList/>
         <NewQuestion/>
-        <QuestionPage id={"8xf0y6ziyjabvozdd253nd"}/>
+        <QuestionPage id={"loxhs1bqm25b708cmbf3g"}/>
       </div>
     );
   }
