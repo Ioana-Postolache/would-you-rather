@@ -34,12 +34,14 @@ handleFormSubmit = event => {
       const optionOneVotes = optionOne.votes.length
       const optionTwoVotes = optionTwo.votes.length
       const totalVotes = optionOneVotes + optionTwoVotes
-      if(answeredBySignedInUser){
+      if(answeredBySignedInUser!==null){
         return(
            <div>
             <p>Total votes: {totalVotes}</p>
-            <p>Option one: {optionOneVotes/totalVotes*100}% </p>
-            <p>Option two: {optionTwoVotes/totalVotes*100}% </p>
+            <ul>
+              <li key='1'>{optionOne.text}: {optionOneVotes/totalVotes*100}% {answeredBySignedInUser==='optionOne' && 'voted'}</li>
+              <li key='2'>{optionTwo.text}: {optionTwoVotes/totalVotes*100}% {answeredBySignedInUser==='optionTwo' && 'voted'}</li>
+            </ul>
            </div>
           )
       }else{
@@ -47,9 +49,10 @@ handleFormSubmit = event => {
 
         <div>
         <h3>Question Page</h3>
-        Question asked by {author}
+        <div>Would you rather...</div>
           <div>
-            <div>Would you rather...</div>
+            
+            <div>Question asked by {author}</div>
             <form onSubmit={this.handleFormSubmit}>
 
               <div className="form-check">
@@ -106,7 +109,7 @@ function mapStateToComponents({users, questions, authedUser}, {id}){
   } else {
     const question = {
       ...questions[id],
-      answeredBySignedInUser: questions[id].optionOne.votes.includes(authedUser) || questions[id].optionTwo.votes.includes(authedUser)
+      answeredBySignedInUser: questions[id].optionOne.votes.includes(authedUser) ? 'optionOne'  : (questions[id].optionTwo.votes.includes(authedUser) ? 'optionTwo' : null)
     }
 
     return{

@@ -5,6 +5,7 @@ import LoadingBar from 'react-redux-loading'
 import QuestionList from './QuestionList'
 import NewQuestion from './NewQuestion'
 import QuestionPage from './QuestionPage'
+import LeaderBoard from './LeaderBoard'
 
 class App extends Component {
   componentDidMount(){
@@ -18,6 +19,7 @@ class App extends Component {
         <QuestionList/>
         <NewQuestion/>
         <QuestionPage id={"loxhs1bqm25b708cmbf3g"}/>
+        <LeaderBoard/>
       </div>
     );
   }

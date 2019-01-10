@@ -5,9 +5,9 @@ import Question from './Question'
 class QuestionList extends Component{
   render(){
     const {answeredStatusQuestions} = this.props
-    const answeredQuestions = answeredStatusQuestions.filter(q=>q.answeredBySignedInUser)
-    const nonAnsweredQuestions = answeredStatusQuestions.filter(q=>!q.answeredBySignedInUser)
-    console.log("answeredStatusQuestions..............", this.props.answeredStatusQuestions)
+    const answeredQuestions = answeredStatusQuestions.filter(q=>q.isAnsweredBySignedInUser)
+    const nonAnsweredQuestions = answeredStatusQuestions.filter(q=>!q.isAnsweredBySignedInUser)
+    
     return(
       <div>
         <h3>QuestionList</h3>
@@ -48,7 +48,7 @@ function mapStateToProperties({questions, authedUser}){
       answeredStatusQuestions = Object.values(questions)
                                    .map(question=>  { 
                                            return {...question,
-                                                   answeredBySignedInUser: question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
+                                                   isAnsweredBySignedInUser: question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
                                                   }})
  
   return {
