@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import handleInitialData from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
 import QuestionList from './QuestionList'
+import NewQuestion from './NewQuestion'
 
 class App extends Component {
   componentDidMount(){
@@ -14,6 +15,7 @@ class App extends Component {
         <LoadingBar/>
         <h3> Would You Rather App</h3>
         <QuestionList/>
+        <NewQuestion/>
        
       </div>
     );
