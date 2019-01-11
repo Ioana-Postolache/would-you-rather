@@ -102,7 +102,7 @@ handleFormSubmit = event => {
 }
   
 function mapStateToComponents({users, questions, authedUser}, {id}){
-  if (users === null || questions === null || authedUser==null){
+  if (authedUser===null){
     return{
       question: null
     } 
