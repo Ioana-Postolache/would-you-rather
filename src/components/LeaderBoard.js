@@ -21,7 +21,7 @@ class LeaderBoard extends Component{
             </li>})}
          
        </ol>
-     }}
+     }
       </div>
     )
   }

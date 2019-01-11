@@ -6,6 +6,7 @@ import QuestionList from './QuestionList'
 import NewQuestion from './NewQuestion'
 import QuestionPage from './QuestionPage'
 import LeaderBoard from './LeaderBoard'
+import SignInPage from './SignInPage'
 
 class App extends Component {
   componentDidMount(){
@@ -20,6 +21,7 @@ class App extends Component {
         <NewQuestion/>
         <QuestionPage id={"loxhs1bqm25b708cmbf3g"}/>
         <LeaderBoard/>
+        <SignInPage/>
       </div>
     );
   }
