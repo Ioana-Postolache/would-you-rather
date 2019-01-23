@@ -39,25 +39,33 @@ class NewQuestion extends Component{
   render(){
     const {text1, text2} = this.state
     return(
-      <div>
-        <h3>Would you rather...</h3>
-        <form className='new-question' onSubmit={this.handleSubmit}>
-           <textarea
-             name='textarea1'
-             placeholder='Enter option one here'
-             value={text1}
-             onChange={this.handleChange}
-             className='textarea'
-            />
-           <textarea
-             name='textarea2'
-             placeholder='Enter option two here'
-             value={text2}
-             onChange={this.handleChange}
-             className='textarea'
-           />
+      <div className="ui segment">
+        <h3 className="ui block header">Would you rather...</h3>
+        <form className='ui form' onSubmit={this.handleSubmit}>
+           <div className="two fields">
+               <div className="field">
+                   <input
+                     type="text"
+                     name='textarea1'
+                     placeholder='Enter option one here'
+                     value={text1}
+                     onChange={this.handleChange}
+                     className='textarea'
+                    />
+              </div>
+              <div className="field">
+                   <input
+                     name='textarea2'
+                     type="text"
+                     placeholder='Enter option two here'
+                     value={text2}
+                     onChange={this.handleChange}
+                     className='textarea'
+                   />
+              </div>
+          </div>
           <button
-             className='btn'
+             className='ui secondary button'
              type='submit'
              disabled={text1===''  || text2===''}
            >

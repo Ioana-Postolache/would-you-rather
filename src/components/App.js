@@ -9,17 +9,22 @@ import LeaderBoard from './LeaderBoard'
 import SignInPage from './SignInPage'
 
 class App extends Component {
+  state={questionId:"loxhs1bqm25b708cmbf3g"}
+
+  handleViewQuestionPoll=(id)=>{
+    return this.setState({questionId:id})
+  }
   componentDidMount(){
     this.props.dispatch(handleInitialData())
   }
   render() {
     return (
-      <div className="App">
+      <div className="ui container">
         <LoadingBar/>
-        <h3> Would You Rather App</h3>
-        <QuestionList/>
+        <h1 className="ui block header"> Would You Rather App</h1>
+        <QuestionList  handleViewQuestionPoll={this.handleViewQuestionPoll}/>
         <NewQuestion/>
-        <QuestionPage id={"loxhs1bqm25b708cmbf3g"}/>
+        <QuestionPage id={this.state.questionId}/>
         <LeaderBoard/>
         <SignInPage/>
       </div>

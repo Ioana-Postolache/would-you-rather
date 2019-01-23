@@ -36,26 +36,29 @@ handleFormSubmit = event => {
       const totalVotes = optionOneVotes + optionTwoVotes
       if(answeredBySignedInUser!==null){
         return(
-           <div>
-            <p>Total votes: {totalVotes}</p>
-            <ul>
-              <li key='1'>{optionOne.text}: {optionOneVotes/totalVotes*100}% {answeredBySignedInUser==='optionOne' && 'voted'}</li>
-              <li key='2'>{optionTwo.text}: {optionTwoVotes/totalVotes*100}% {answeredBySignedInUser==='optionTwo' && 'voted'}</li>
-            </ul>
-           </div>
+           <div className="ui segment">
+            <div className="content">
+                <h3 className="ui block header">Poll results</h3>
+                <h4>Total votes: {totalVotes}</h4>
+                <ul>
+                  <li key='1'>{optionOne.text}: {optionOneVotes/totalVotes*100}% {answeredBySignedInUser==='optionOne' && 'your option'}</li>
+                  <li key='2'>{optionTwo.text}: {optionTwoVotes/totalVotes*100}% {answeredBySignedInUser==='optionTwo' && 'your option'}</li>
+                </ul>
+               </div>
+            </div>
           )
       }else{
       return(
 
-        <div>
-        <h3>Question Page</h3>
-        <div>Would you rather...</div>
+        <div className="ui segment">
+        <h3 className="ui block header">Question Page</h3>
+        <h4>Would you rather...</h4>
           <div>
             
             <div>Question asked by {author}</div>
             <form onSubmit={this.handleFormSubmit}>
 
-              <div className="form-check">
+              <div className="ui action input">
                 <label>
                   <input
                     type="radio"
@@ -84,7 +87,7 @@ handleFormSubmit = event => {
               </div>
 
               <div className="form-group">
-                <button className="btn btn-primary mt-2" type="submit">
+                <button className="ui secondary button" type="submit">
                   Submit
                 </button>
               </div>
