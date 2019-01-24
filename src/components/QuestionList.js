@@ -4,7 +4,7 @@ import Question from './Question'
 
 class QuestionList extends Component{
   state={
-          activeTab: "not-answered" 
+          activeTab: "answered" 
        }
 
   handleClick=(event)=>{

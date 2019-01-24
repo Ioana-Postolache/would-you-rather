@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {handleSubmitAnswer} from '../actions/questions'
+import { image } from 'faker'
 
 class QuestionPage extends Component{
   state = {
@@ -24,7 +25,7 @@ handleFormSubmit = event => {
 }
 
   render(){
-    const {question} = this.props
+    const {question, users} = this.props
     if(question===null) {
       return <div>
         Loading...
@@ -41,8 +42,8 @@ handleFormSubmit = event => {
                 <h3 className="ui block header">Poll results</h3>
                 <h4>Total votes: {totalVotes}</h4>
                 <ul>
-                  <li key='1'>{optionOne.text}: {optionOneVotes/totalVotes*100}% {answeredBySignedInUser==='optionOne' && 'your option'}</li>
-                  <li key='2'>{optionTwo.text}: {optionTwoVotes/totalVotes*100}% {answeredBySignedInUser==='optionTwo' && 'your option'}</li>
+                  <li key='1' className="inline field">{optionOne.text}: {optionOneVotes/totalVotes*100}% {answeredBySignedInUser==='optionOne' && <div class="ui left pointing green basic label">your option</div>}</li>
+                  <li key='2' className="inline field">{optionTwo.text}: {optionTwoVotes/totalVotes*100}% {answeredBySignedInUser==='optionTwo' && <div class="ui left pointing green basic label">your option</div>}</li>
                 </ul>
                </div>
             </div>
@@ -52,13 +53,20 @@ handleFormSubmit = event => {
 
         <div className="ui segment">
         <h3 className="ui block header">Question Page</h3>
-        <h4>Would you rather...</h4>
-          <div>
-            
-            <div>Question asked by {author}</div>
+          <div className="ui segment">
+
+            <div className="ui left floated image">
+              <img style={{width: '175px'}} alt={`${users[author].name}'s avatar`}  src={image.avatar()}/>
+           </div>
+          <div className="content">
+            <h3>Would you rather...</h3>
+            <p className="question-author" style={{color: 'rgba(0,0,0,.4)'}}> 
+               Question asked by {users[author].name}
+             </p>
+
             <form onSubmit={this.handleFormSubmit}>
 
-              <div className="ui action input">
+              <p className="ui action input">
                 <label>
                   <input
                     type="radio"
@@ -70,9 +78,9 @@ handleFormSubmit = event => {
                   />
                 {optionOne.text}
                 </label>
-              </div>
-              <div>or</div>
-              <div className="form-check">
+              </p>
+ 
+              <p className="form-check">
                 <label>
                   <input
                     type="radio"
@@ -84,7 +92,7 @@ handleFormSubmit = event => {
                   />
                  {optionTwo.text}
                 </label>
-              </div>
+              </p>
 
               <div className="form-group">
                 <button className="ui secondary button" type="submit">
@@ -94,7 +102,7 @@ handleFormSubmit = event => {
 
           </form>
           </div>
-
+        </div>
         </div>
 
 
@@ -109,16 +117,17 @@ function mapStateToComponents({users, questions, authedUser}, {id}){
     return{
       question: null
     } 
-  } else {
+  } 
     const question = {
       ...questions[id],
       answeredBySignedInUser: questions[id].optionOne.votes.includes(authedUser) ? 'optionOne'  : (questions[id].optionTwo.votes.includes(authedUser) ? 'optionTwo' : null)
     }
 
     return{
-      question
+      question,
+      users
     }
-  }
+
 }
   
 export default connect(mapStateToComponents)(QuestionPage)

@@ -23,7 +23,6 @@ function addQuestion(question){
 export function handleAddQuestion(optionOneText, optionTwoText){
   return(dispatch, getState)=>{
     const {authedUser} = getState()
-    console.log('teeeeeeeeeeeeeeeeeeeeeest')
     dispatch(showLoading())
     return saveQuestion({
       optionOneText,
@@ -36,7 +35,7 @@ export function handleAddQuestion(optionOneText, optionTwoText){
 }
 
 function submitAnswer({ authedUser, qid, answer }){
-  console.log('submitAnswer has been called with ',authedUser, qid, answer)
+
   return{
     type:SUBMIT_ANSWER,
     payload:{
