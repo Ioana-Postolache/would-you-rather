@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import handleInitialData from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
 import QuestionList from './QuestionList'
@@ -8,12 +8,15 @@ import NewQuestion from './NewQuestion'
 import QuestionPage from './QuestionPage'
 import LeaderBoard from './LeaderBoard'
 import SignInPage from './SignInPage'
+import Nav from './Nav'
 
 class App extends Component {
-  state={questionId:"loxhs1bqm25b708cmbf3g"}
+  
+  state = { questionId: null }
 
   handleViewQuestionPoll=(id)=>{
-    return this.setState({questionId:id})
+    console.log("this is the id", id)
+    return this.setState({ questionId:id })
   }
  
  handleSignIn
@@ -22,16 +25,33 @@ class App extends Component {
   }
 
   render() {
+    const { authedUser, loading } = this.props
+
     return (
-      <div className="ui container">
-        <LoadingBar/>
-        <h1 className="ui block header"> Would You Rather App</h1>
-        <QuestionList  handleViewQuestionPoll={this.handleViewQuestionPoll}/>
-        <NewQuestion/>
-        <QuestionPage id={this.state.questionId}/>
-        <LeaderBoard/>
-        <SignInPage/>
-      </div>
+      <Router>
+          <div className="ui container">
+
+            <h1 className="ui block header"> Would You Rather App</h1>
+            <div>
+           {loading===true
+            ?<LoadingBar/>
+            : (authedUser===null
+              ?<Route path='/' component={SignInPage}/>
+              :(<Fragment>
+                    <Nav/>
+                    <Route path='/' exact render={()=>(
+                       <QuestionList handleViewQuestionPoll={this.handleViewQuestionPoll}/>
+                    )}/>
+                    <Route path='/NewQuestion' component={NewQuestion}/>
+                    <Route path='/QuestionPage:id' render={()=>(
+                       <QuestionPage id={this.state.questionId}/>)
+                    }/>
+                    <Route path='/LeaderBoard' component={LeaderBoard}/> 
+                </Fragment>
+               ))}
+            </div>
+          </div>   
+       </Router>
     );
   }
 }

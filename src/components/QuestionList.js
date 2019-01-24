@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Question from './Question'
 
 class QuestionList extends Component{
@@ -10,9 +10,10 @@ class QuestionList extends Component{
   handleClick=(event)=>{
     const tabName=event.target.getAttribute('name')
     this.setState({ activeTab: tabName })
-  }
+  } 
+
   render(){
-    const {answeredStatusQuestions} = this.props
+    const { answeredStatusQuestions } = this.props
     const answeredQuestions = answeredStatusQuestions.filter(q=>q.isAnsweredBySignedInUser)
     const nonAnsweredQuestions = answeredStatusQuestions.filter(q=>!q.isAnsweredBySignedInUser)
     
@@ -71,15 +72,15 @@ function mapStateToProperties({questions, authedUser}, props){
 
       answeredStatusQuestions = Object.values(questions)
                                    .map(question=>  { 
-                                           return {...question,
-                                                   isAnsweredBySignedInUser: question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
-                                                  }})
+                                           return {
+                                             ...question,
+                                              isAnsweredBySignedInUser: question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
+                                            }})
  
   return {
-    answeredStatusQuestions:  answeredStatusQuestions
+      answeredStatusQuestions:  answeredStatusQuestions
                                   .sort((a,b)=>a.timestamp-b.timestamp),
-    props
-                              
+      props                              
           }
  
 }
