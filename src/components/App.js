@@ -21,35 +21,36 @@ class App extends Component {
 
     return (
       <Router>
-          <div className="ui container">
-
-            <h1 className="ui block header"> Would You Rather App</h1>
-            <div>
-           {loading===true
-            ?<LoadingBar/>
-            : ( authedUser === null
-              ?<Route path='/' component = { SignInPage }/>
-              :(<Fragment>
-                    <Nav/>
-                    <Route path='/' exact render={()=>(
-                       <QuestionList handleViewQuestionPoll = { this.handleViewQuestionPoll }/>
-                    )}/>
-                    <Route path = '/NewQuestion' component = { NewQuestion }/>
-                    <Route path = '/Question/:id' component = { QuestionPage }/>
-
-                    <Route path = '/LeaderBoard' component = { LeaderBoard }/> 
-                </Fragment>
-               ))}
-            </div>
-          </div>   
+        <Fragment>
+          <LoadingBar/>                              
+          { loading === true
+              ? null
+              :( <div className="ui container">  
+                 <h1 className="ui block header"> Would You Rather App</h1>     
+                 { authedUser === null
+                 ? <Route path = '/' component = { SignInPage }/>
+                 : <div>                     
+                     <Nav/>
+                     <Route path='/' exact render={()=>(
+                        <QuestionList handleViewQuestionPoll = { this.handleViewQuestionPoll }/>
+                      )}/>
+                      <Route path = '/add' component = { NewQuestion }/>
+                      <Route path = '/questions/:id' component = { QuestionPage }/>
+                      <Route path = '/leaderboard' component = { LeaderBoard }/> 
+                  </div>
+                  }
+               </div> 
+               )} 
+         </Fragment>
        </Router>
     );
   }
 }
 
-function mapStateToProps({authedUser}){
+function mapStateToProps({authedUser, questions}){
   return {
-    loading: authedUser === null
+    loading: Object.keys(questions).length === 0,
+    authedUser
   }
 }
 export default connect(mapStateToProps)(App);

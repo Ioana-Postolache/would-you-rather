@@ -3,17 +3,17 @@ import Dropdown from 'react-dropdown'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
 
-class SignInPage extends Component{
+class SignInPage extends Component {
   
-  state={
+  state = {
     selected: ''
   }
   
-   onSelect = (option)=> {
-    this.setState({selected: option})
+   onSelect = ( option ) => {
+    this.setState({ selected: option })
   }
  
-  handleSignIn=event=>{
+  handleSignIn = event => {
     event.preventDefault()
     
     const { dispatch } = this.props
@@ -58,8 +58,7 @@ class SignInPage extends Component{
 function mapStateToProps({ users, authedUser }){
   return{
     authedUser,
-    users, 
-
+    users
   }
 }
 export default connect(mapStateToProps)(SignInPage)

@@ -4,54 +4,54 @@ import Question from './Question'
 
 class QuestionList extends Component{
   state ={
-          activeTab: "answered" 
+          activeTab: "unanswered" 
        }
 
-  handleClick=(event)=>{
-    const tabName=event.target.getAttribute('name')
+  handleClick = ( event ) => {
+    const tabName = event.target.getAttribute('name')
     this.setState({ activeTab: tabName })
   } 
 
-  render(){
+  render() {
     const { answeredStatusQuestions } = this.props
-    const answeredQuestions = answeredStatusQuestions.filter(q=>q.isAnsweredBySignedInUser)
-    const nonAnsweredQuestions = answeredStatusQuestions.filter(q=>!q.isAnsweredBySignedInUser)
+    const answeredQuestions = answeredStatusQuestions.filter(q => q.isAnsweredBySignedInUser)
+    const nonAnsweredQuestions = answeredStatusQuestions.filter(q => !q.isAnsweredBySignedInUser)
     
     return(
-      <div className="ui segment">
-        <h3 className="ui block header">QuestionList</h3>
-      {answeredStatusQuestions.length!==0 &&
+      <div className = "ui segment">
+        <h3 className = "ui block header"> QuestionList </h3>
+      {answeredStatusQuestions.length !== 0 &&
       <div>
-      <div className="ui top attached tabular menu">
+      <div className = "ui top attached tabular menu">
         <div 
-          className={'item '.concat(this.state.activeTab==='answered'?'active':'')} 
-          name="answered"
-          onClick={this.handleClick}
+          className = {'item '.concat(this.state.activeTab === 'answered' ? 'active' : '')} 
+          name = "answered"
+          onClick = {this.handleClick}
           >
             Answered Questions
         </div>
         <div 
-          className={'item '.concat(this.state.activeTab==='not-answered'?'active':'')} 
-          name="not-answered"
-          onClick={this.handleClick}
+          className = {'item '.concat(this.state.activeTab === 'unanswered' ? 'active' : '')} 
+          name = "unanswered"
+          onClick = { this.handleClick }
            >
-            Not Answered Questions
+            Unanswered Questions
         </div>
       </div>
-          <div className={'ui bottom attached tab segment  '.concat(this.state.activeTab==='answered'?'active':'')} data-tab="answered">
+          <div className={'ui bottom attached tab segment  '.concat( this.state.activeTab === 'answered' ? 'active' : '' )} data-tab = "answered">
             <div className="ui divided items">
               {answeredQuestions.map(question =>
-               <Question key={question.id} id={question.id} handleViewQuestionPoll={this.props.handleViewQuestionPoll}/>
+               <Question key = { question.id } id = { question.id } handleViewQuestionPoll = { this.props.handleViewQuestionPoll }/>
                )}
             </div>
          </div>
-         <div className={'ui bottom attached tab segment  '.concat(this.state.activeTab==='not-answered'?'active':'')}  data-tab="not-answered">
-            <div className="ui divided items">
+         <div className = {'ui bottom attached tab segment  '.concat( this.state.activeTab === 'unanswered' ? 'active' : '' )}  data-tab = "unanswered" >
+            <div className = "ui divided items">
               {nonAnsweredQuestions.map(question =>
-                 <Question key={question.id} id={question.id} handleViewQuestionPoll={this.props.handleViewQuestionPoll}/>
+                 <Question key = { question.id } id = { question.id } handleViewQuestionPoll = { this.props.handleViewQuestionPoll }/>
                )}
             </div>
-         </div>
+           </div>
          </div>
           }         
       </div>
@@ -78,7 +78,7 @@ function mapStateToProperties({ questions, authedUser }, props){
  
   return {
       answeredStatusQuestions:  answeredStatusQuestions
-                                  .sort((a,b)=>a.timestamp-b.timestamp),
+                                  .sort(( a, b ) => b.timestamp - a.timestamp ),
       props                              
           }
  

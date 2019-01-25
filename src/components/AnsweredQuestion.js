@@ -14,11 +14,11 @@ class AnsweredQuestion extends Component {
             <h4>Total votes: {totalVotes}</h4>
             <ul>
                <li key='1' className="inline field">
-                  { optionOne.text } : {optionOneVotes/totalVotes*100}% 
+                  { optionOne.text } : {optionOneVotes} vote(s), {Math.round(optionOneVotes/totalVotes*100)}% of the total votes
                                       {answeredBySignedInUser==='optionOne' && <div className="ui left pointing green basic label">your option</div>}
                </li>
                <li key='2' className="inline field"> 
-                  { optionTwo.text } : {optionTwoVotes/totalVotes*100}% 
+                  { optionTwo.text } : {optionTwoVotes} vote(s), {Math.round(optionTwoVotes/totalVotes*100)}% of the total votes
                                        {answeredBySignedInUser==='optionTwo' && <div className="ui left pointing green basic label">your option</div>}
                 </li>
             </ul>
