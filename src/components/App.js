@@ -12,14 +12,6 @@ import Nav from './Nav'
 
 class App extends Component {
   
-  state = { questionId: null }
-
-  handleViewQuestionPoll=(id)=>{
-    console.log("this is the id", id)
-    return this.setState({ questionId:id })
-  }
- 
- handleSignIn
   componentDidMount(){
     this.props.dispatch(handleInitialData())
   }
@@ -35,18 +27,17 @@ class App extends Component {
             <div>
            {loading===true
             ?<LoadingBar/>
-            : (authedUser===null
-              ?<Route path='/' component={SignInPage}/>
+            : ( authedUser === null
+              ?<Route path='/' component = { SignInPage }/>
               :(<Fragment>
                     <Nav/>
                     <Route path='/' exact render={()=>(
-                       <QuestionList handleViewQuestionPoll={this.handleViewQuestionPoll}/>
+                       <QuestionList handleViewQuestionPoll = { this.handleViewQuestionPoll }/>
                     )}/>
-                    <Route path='/NewQuestion' component={NewQuestion}/>
-                    <Route path='/QuestionPage:id' render={()=>(
-                       <QuestionPage id={this.state.questionId}/>)
-                    }/>
-                    <Route path='/LeaderBoard' component={LeaderBoard}/> 
+                    <Route path = '/NewQuestion' component = { NewQuestion }/>
+                    <Route path = '/Question/:id' component = { QuestionPage }/>
+
+                    <Route path = '/LeaderBoard' component = { LeaderBoard }/> 
                 </Fragment>
                ))}
             </div>

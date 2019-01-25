@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Question from './Question'
 
 class QuestionList extends Component{
-  state={
+  state ={
           activeTab: "answered" 
        }
 
@@ -46,12 +46,11 @@ class QuestionList extends Component{
             </div>
          </div>
          <div className={'ui bottom attached tab segment  '.concat(this.state.activeTab==='not-answered'?'active':'')}  data-tab="not-answered">
-
-              <div className="ui divided items">
-                {nonAnsweredQuestions.map(question =>
-                   <Question key={question.id} id={question.id} handleViewQuestionPoll={this.props.handleViewQuestionPoll}/>
-                 )}
-              </div>
+            <div className="ui divided items">
+              {nonAnsweredQuestions.map(question =>
+                 <Question key={question.id} id={question.id} handleViewQuestionPoll={this.props.handleViewQuestionPoll}/>
+               )}
+            </div>
          </div>
          </div>
           }         
@@ -60,22 +59,22 @@ class QuestionList extends Component{
   }
 }
 
-function mapStateToProperties({questions, authedUser}, props){
+function mapStateToProperties({ questions, authedUser }, props){
 
   let answeredStatusQuestions = []
-  if(authedUser === null){
+  
+  if( authedUser === null ){
     return {
       answeredStatusQuestions,
       props
     }
   } 
 
-      answeredStatusQuestions = Object.values(questions)
-                                   .map(question=>  { 
-                                           return {
-                                             ...question,
-                                              isAnsweredBySignedInUser: question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
-                                            }})
+     answeredStatusQuestions = Object.values(questions).map(question=>  { 
+                                   return {
+                                     ...question,
+                                      isAnsweredBySignedInUser: question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
+                                    }})
  
   return {
       answeredStatusQuestions:  answeredStatusQuestions

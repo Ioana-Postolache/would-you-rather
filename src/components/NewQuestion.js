@@ -1,28 +1,31 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {handleAddQuestion} from '../actions/questions'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { handleAddQuestion } from '../actions/questions'
 
 class NewQuestion extends Component{
   
-  state={
+  state = {
     text1: '',
-    text2: ''
+    text2: '',
+    toHome: false
   }
   
-  handleSubmit = (event)=>{
+  handleSubmit = ( event )=>{
     event.preventDefault()
-    const {text1, text2} = this.state
-    const {dispatch} = this.props
+    const { text1, text2 } = this.state
+    const { dispatch } = this.props
     
-    dispatch(handleAddQuestion(text1, text2))
+    dispatch( handleAddQuestion( text1, text2 ) )
     
     this.setState({
       text1: '',
-      text2: ''
+      text2: '',
+      toHome: true
     })
   }
 
-  handleChange = (event)=>{
+  handleChange = ( event ) => {
     const text = event.target.value
     const option = event.target.name
     if(option==='textarea1'){
@@ -36,8 +39,18 @@ class NewQuestion extends Component{
     }
  }
   
-  render(){
-    const {text1, text2} = this.state
+  render() {
+    const { text1, text2, toHome } = this.state
+    const { authedUser } = this.props
+    
+    if ( authedUser === true ){
+      return <Redirect to =  '/SignInPage'/>
+    }
+
+    if ( toHome === true ){
+      return <Redirect to =  '/'/>
+    }
+    
     return(
       <div className="ui segment">
         <h3 className="ui block header">Would you rather...</h3>
@@ -67,7 +80,7 @@ class NewQuestion extends Component{
           <button
              className='ui secondary button'
              type='submit'
-             disabled={text1===''  || text2===''}
+             disabled={ text1===''  || text2==='' }
            >
             Submit
           </button>
@@ -77,4 +90,7 @@ class NewQuestion extends Component{
   }
 }
 
-export default connect()(NewQuestion)
+function mapStateToProps({ authedUser}) {
+  return { authedUser }
+}
+export default connect(mapStateToProps)(NewQuestion)

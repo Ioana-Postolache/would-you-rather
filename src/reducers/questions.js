@@ -14,7 +14,7 @@ export default function questions (state={}, action){
       }
     case SUBMIT_ANSWER:
       const {qid, authedUser, answer} = action.payload
-      console.log('SUBMIT_ANSWER has been called with ',qid, authedUser, answer)
+  
       if(answer === 'optionOne') {
         console.log('SUBMIT_ANSWER has been called with ',qid, authedUser, answer)
         return {
@@ -28,19 +28,17 @@ export default function questions (state={}, action){
                  }
          }
           
-     } else {
-       return {
-          ...state,
-          [qid]:{
-                  ...state[qid],
-                  optionTwo: {
-                              ...state[qid].optionTwo,
-                              votes: state[qid].optionTwo.votes.concat(authedUser)
-                             }
-                 }
-         }
-     }
-        
+     } 
+     return {
+        ...state,
+        [qid]:{
+                ...state[qid],
+                optionTwo: {
+                            ...state[qid].optionTwo,
+                            votes: state[qid].optionTwo.votes.concat(authedUser)
+                           }
+               }
+       }     
    
     default:
       return state
